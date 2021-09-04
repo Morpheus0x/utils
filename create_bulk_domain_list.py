@@ -2,6 +2,29 @@
 
 import sys, getopt, re
 
+help = "Usage: "+ __file__ + """ [-s bulksize] [-o output] [-d domains]
+\t\t\t\t\t\t\t\t\t[-a|b|c string] [--xa|xb|xc string]
+Examples:
+\t __file__ -o "./out" -s 2000
+\t __file__ -o "./out" -a d -b dsi -c dst -d at,eu,com,net,org
+\t __file__ --output "./out" --bulk-size 100 --domain at,eu,gmbh
+\t __file__ -o "./out" -s 2000 -a d --xb xyz --xc xyz -d at,eu,gmbh
+
+Info:
+\tDomain scheme: abc.tld
+\t\tThe default for a b and c is the alphabet from a to z.
+\t\tThis can be reduced or replaced by settings arguments described below
+
+Options:
+\t-h, --help
+\t-s, --bulk-size <size>\tHow many domain per file, default: 0
+\t-o, --output <file>\tOutput file name/path
+\t-d, --domain <domains>\t comma seperated list, default: at
+\t-a|b|c <string>\treplace the default alphabet with selected characters
+\t--xa|xb|xc <string>\tremove the characters in string from alphabet
+works pretty good\n
+\t even tabulated"""+ __file__+ "and even with variables"
+
 alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
             'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
             'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
@@ -9,14 +32,15 @@ letter = {}
 letter["a"] = alphabet.copy()
 letter["b"] = alphabet.copy()
 letter["c"] = alphabet.copy()
+alphamod = {"a": False, "b": False, "c": False}
 domain = ["at"]
 outfile = "./out"
 bulksize = 0
 
 def help_exit(error=""):
 	if error != "":
-		print("Error: " + error)
-	print("program help WIP")
+		print("##########\nError: " + error +"\n##########\n")
+	print(help.expandtabs(4))
 	if error == "":
 		sys.exit()
 	else:
@@ -25,7 +49,7 @@ def help_exit(error=""):
 def main(argv):
 	global letter, domain, outfile, bulksize
 	try:
-		opts, args = getopt.getopt(argv,"hs:o:d:a:b:c:",["help","bulk-size=","domain=", "output=", "xa=", "xb=", "xc="])
+		opts, args = getopt.getopt(argv,"hs:o:d:a:b:c:",["help","bulk-size=", "output=", "domain=", "xa=", "xb=", "xc="])
 	except getopt.GetoptError:
 		help_exit()
 	for opt, arg in opts:
@@ -42,23 +66,23 @@ def main(argv):
 				exit(1)
 			domain = arg.split(",")
 		elif opt in ("-a", "-b", "-c"):
+			if alphamod[opt[-1]] == True:
+				help_exit("Only one replacement or exclusion list is allowed per position, a b or c!")
+			alphamod[opt[-1]] = True
 			letter[opt[-1]] = [char for char in arg]
 		elif opt in ("--xa","--xb","--xc"):
+			if alphamod[opt[-1]] == True:
+				help_exit("Only one replacement or exclusion list is allowed per position, a b or c!")
+			alphamod[opt[-1]] = True
 			for char in arg:
 				try:
 					letter[opt[-1]].remove(char)
 				except:
 					help_exit("Double character detected: \'"+arg+"\'")
-	#print("alphabet: ", alphabet)
-	#print("letter_a: ", letter_a)
-	#print("letter_b: ", letter_b)
-	#print("letter_c: ", letter_c)
-	#sys.exit()
 	if bulksize == 0:
 		file = open(outfile, 'w')
 	else:
 		file = None
-		#print(file)
 	counter = 0
 	file_count = 0;
 	for tld in domain:
