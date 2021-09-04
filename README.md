@@ -21,7 +21,7 @@ Info:
 Options:
     -h, --help
     -s, --bulk-size <size>  How many domain per file, default: 0
-    -o, --output <file> Output file name/path
+    -o, --output <file> Output file name
     -d, --domain <domains>   comma seperated list of TLDs, default: at
     -a|b|c <string> replace the default alphabet with selected characters
     --xa|xb|xc <string> remove the characters in string from alphabet

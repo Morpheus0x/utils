@@ -18,7 +18,7 @@ Info:
 Options:
 \t-h, --help
 \t-s, --bulk-size <size>\tHow many domain per file, default: 0
-\t-o, --output <file>\tOutput file name/path
+\t-o, --output <file>\tOutput file name
 \t-d, --domain <domains>\t comma seperated list of TLDs, default: at
 \t-a|b|c <string>\treplace the default alphabet with selected characters
 \t--xa|xb|xc <string>\tremove the characters in string from alphabet"""
