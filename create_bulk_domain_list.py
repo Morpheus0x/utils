@@ -21,9 +21,7 @@ Options:
 \t-o, --output <file>\tOutput file name/path
 \t-d, --domain <domains>\t comma seperated list of TLDs, default: at
 \t-a|b|c <string>\treplace the default alphabet with selected characters
-\t--xa|xb|xc <string>\tremove the characters in string from alphabet
-works pretty good\n
-\t even tabulated"""+ __file__+ "and even with variables"
+\t--xa|xb|xc <string>\tremove the characters in string from alphabet"""
 
 alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
             'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
@@ -54,7 +52,6 @@ def main(argv):
 		help_exit()
 	for opt, arg in opts:
 		if opt in("-h", "--help"):
-			print("actual help")
 			help_exit()
 		elif opt in ("-s", "--bulk-size"):
 			bulksize = int(arg)
