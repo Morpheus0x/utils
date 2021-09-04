@@ -5,21 +5,21 @@ import sys, getopt, re
 help = "Usage: "+ __file__ + """ [-s bulksize] [-o output] [-d domains]
 \t\t\t\t\t\t\t\t\t[-a|b|c string] [--xa|xb|xc string]
 Examples:
-\t __file__ -o "./out" -s 2000
-\t __file__ -o "./out" -a d -b dsi -c dst -d at,eu,com,net,org
-\t __file__ --output "./out" --bulk-size 100 --domain at,eu,gmbh
-\t __file__ -o "./out" -s 2000 -a d --xb xyz --xc xyz -d at,eu,gmbh
+"""+__file__+""" -o \"./out\" -s 2000
+"""+__file__+""" -o \"./out\" -a d -b dsi -c dst -d at,eu,com,net,org
+"""+__file__+""" -o \"./out\" -s 2000 -a d --xb xyz --xc xyz -d at,eu,gmbh
+"""+__file__+""" --output \"./out\" --bulk-size 100 --domain at,eu,gmbh
 
 Info:
 \tDomain scheme: abc.tld
 \t\tThe default for a b and c is the alphabet from a to z.
-\t\tThis can be reduced or replaced by settings arguments described below
+\t\tThis can be reduced or replaced by using arguments described below
 
 Options:
 \t-h, --help
 \t-s, --bulk-size <size>\tHow many domain per file, default: 0
 \t-o, --output <file>\tOutput file name/path
-\t-d, --domain <domains>\t comma seperated list, default: at
+\t-d, --domain <domains>\t comma seperated list of TLDs, default: at
 \t-a|b|c <string>\treplace the default alphabet with selected characters
 \t--xa|xb|xc <string>\tremove the characters in string from alphabet
 works pretty good\n
