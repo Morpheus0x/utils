@@ -47,7 +47,7 @@ def help_exit(error=""):
 		sys.exit(1)
 
 def main(argv):
-	global letter, tld, outfile, bulksize
+	global letter, alphamod, tld, delimiter, outfile, bulksize
 	try:
 		opts, args = getopt.getopt(argv,"hs:o:t:d:a:b:c:",["help","bulk-size=", "output=", "tld=", "xa=", "xb=", "xc="])
 	except getopt.GetoptError:
@@ -65,9 +65,9 @@ def main(argv):
 				exit(1)
 			tld = arg.split(",")
 		elif opt in ("-d", "--delimiter"):
-			if length(arg) > 2:
+			if len(arg) > 2:
 				help_exit("Wrong delimiter, larger than 2 characters: \'"+arg+"\'")
-			delimiter = opt
+			delimiter = arg
 		elif opt in ("-a", "-b", "-c"):
 			if alphamod[opt[-1]] == True:
 				help_exit("Only one replacement or exclusion list is allowed per position, a b or c!")
